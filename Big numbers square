@@ -1,0 +1,56 @@
+//DAA Assignment-1
+//Roll No. = TYCOA68
+import java.util.Scanner;
+import java.math.BigInteger;
+
+public class LargeSquare {
+
+public static long countDigits(BigInteger a){
+    return a.toString().length();
+}
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter the number : ");
+    //Number Input
+    BigInteger n = sc.nextBigInteger();
+    //count digits in number
+    long cd = countDigits(n);
+    //Modulo of count
+    long z = cd%2;
+    //Division of count
+    long d = cd/2;
+    //Division of number
+    if(z==0){
+    BigInteger y = BigInteger.TEN;
+    //Splitting number in two parts A = a1 x 10^d + a0 where d = half the count of digits of number
+    //First half of the number (a1)
+    BigInteger d0 = n.divide(y.pow((int)d));
+    // a1 x 10^d
+    BigInteger a1 = d0.multiply(y.pow((int)d));
+    System.out.println("First part of the number : "+a1);
+    //Second half part of the number (a0)
+    BigInteger a0 = n.mod(y.pow((int)d));
+    System.out.println("Second part of the number : "+a0);
+    //Square = a1^2 + 2 x a1 x a0 + a0^2
+    BigInteger result = a1.multiply(a1)
+                      .add(a1.multiply(a0))
+                      .add(a1.multiply(a0))
+                      .add(a0.multiply(a0));
+    System.out.println("\nOutput : "+result+"\n"); 
+    }
+    else{
+    BigInteger y = BigInteger.TEN;
+    BigInteger d0 = n.divide(y.pow((int)(d+1)));
+    BigInteger a1 = d0.multiply(y.pow((int)(d+1)));
+    System.out.println("First part of the number : "+a1);
+    BigInteger a0 = n.mod(y.pow((int)(d+1)));
+    System.out.println("Second part of the number : "+a0);
+    BigInteger result = a1.multiply(a1)
+                      .add(a1.multiply(a0))
+                      .add(a1.multiply(a0))
+                      .add(a0.multiply(a0));
+    System.out.println("\nOutput : "+result+"\n"); 
+    }
+    sc.close();
+}    
+}
